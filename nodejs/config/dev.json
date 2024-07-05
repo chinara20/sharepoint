@@ -1,0 +1,9 @@
+{
+    "dbConfig": {
+        "host": "localhost",
+        "port": 3306,
+        "user": "nijat_n",
+		"password": "Nic@tNb@2022",
+		"database": "sharepoint_db"
+    }
+}
