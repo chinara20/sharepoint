@@ -424,7 +424,6 @@ class HelpdeskController extends Controller
         if (Auth::user()->department_id != 7) return redirect(route('helpdesk.index'));
         $my_desks = HelpdeskForward::where('user_id', Auth::user()->id)->get()->unique('helpdesk_id');
         // $my_desks = HelpdeskForward::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->paginate(2);
-
         return view('pages.helpdesk.my_desks', compact('my_desks'));
     }
 }

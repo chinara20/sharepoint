@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Document extends Model
 {
-    protected $fillable = ['name', 'src', 'type'];
+    protected $fillable = ['id', 'name', 'src', 'type'];
 
     
     public function getTypeAttribute($value)

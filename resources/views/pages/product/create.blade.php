@@ -33,10 +33,19 @@
                </div>
                <!-- -------------- /section -------------- -->
                <!-- -------------- /section -------------- -->
-               <div class="col-md-12 ph10 mb5">
-                  <label for="surname" class="field prepend-icon">
-                  <textarea required="required" placeholder="Açıqlama" name="text" style="height: 200px;" class="gui-input"></textarea>
-                  <label for="surname" class="field-icon">
+               <!-- <div class="col-md-12 ph10 mb5">
+                  <label for="description" class="field prepend-icon">
+                  <textarea required="required" placeholder="Açıqlama" name="description" style="height: 200px;" class="gui-input"></textarea>
+                  <label for="description" class="field-icon">
+                  </label>
+                  </label>
+               </div> -->
+
+               <div class="col-md-6 ph10 mb5">
+                  <label for="description" class="field prepend-icon">
+                  <input required="required" type="text" name="description" id="description" class="gui-input" placeholder="Məhsulun aciqlamasi">
+                  <label for="description" class="field-icon">
+                  <i class="fa fa-user"></i>
                   </label>
                   </label>
                </div>
@@ -53,7 +62,14 @@
                </div>
                <!-- -------------- /section -------------- -->
                
-
+               <div class="col-md-12 ph10 mb5">
+                  <label for="price" class="field prepend-icon">
+                  <input required="required" type="text" name="price" id="price" class="gui-input" placeholder="Məhsulun Qiyməti">
+       
+                  <label for="price" class="field-icon">
+                  </label>
+                  </label>
+               </div>
 
             </div>
             <!-- -------------- /section -------------- -->

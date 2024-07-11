@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Jobs\FetchNewsJob;
 use App\Jobs\SendNotificationMailsJob;
+use App\Jobs\OrderApiJob;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -15,7 +16,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\OrderApi::class,
     ];
 
     /**
@@ -28,10 +29,15 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-        $schedule->job(new FetchNewsJob)->everyMinute();
-        $schedule->job(new SendNotificationMailsJob)->everyMinute();
-    }
+        // $schedule->job(new FetchNewsJob)->everyMinute();
+        // $schedule->job(new SendNotificationMailsJob)->everyMinute();
+        $schedule->job(new OrderApiJob)->everyMinute();
+        // $schedule->command('order:api')->everyTenMinutes(); // Example schedule
 
+        // $schedule->job(new \App\Jobs\OrderApiJob)->dailyAt('00:00');
+
+    }
+    
     /**
      * Register the Closure based commands for the application.
      *

@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Product;
+use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
+
     public function index()
     {
         $orders = Order::all();
@@ -21,22 +25,14 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
-        // $this->validate([
-        //     'company_name' => 'nullable|string',
-        //     'voen' => 'nullable|string',
-        //     'full_name' => 'nullable|string',
-        //     'phone' => 'nullable|string',
-        //     'email' => 'nullable|email',
-        //     'object_name' => 'nullable|string',
-        //     'product_id' => 'nullable|integer',
-        //     'price' => 'nullable|numeric',
-        //     'qty' => 'nullable|integer',
-        //     'comment' => 'nullable|string',
-        //     'status' => 'nullable|in:pending,processing,completed',
-        // ]);
-
-        $order = Order::create($request->all());
-
+        
+        $order = $request->all();
+        $product = Product::find($request->product_id);
+        $order['product_id']=$product->id;
+        $order['price']=$product->price;
+        $order['user_id']=Auth::user()->id;
+        Order::create($order);
         return redirect()->back()->with('success', 'Order created successfully!');
     }
+    
 }

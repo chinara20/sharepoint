@@ -5,7 +5,9 @@
     <tr>
         <th>#</th>
         <th>Foto</th>
+        <th>Qiymət</th>
         <th>ad</th>
+        <th>Açıqlama</th>
         <th>Tarix</th>
         <th>Funksiya</th>
 
@@ -18,7 +20,9 @@
     <tr>
         <td>{{ $product->id }}</td>
         <td><img style="height: 50px;width: 50px;" src="/storage/{{$product->img}}"></td>
+        <td>{{ $product->price }}</td>
         <td>{{ $product->name }}</td>
+        <td>{{ $product->description }}</td>
         <td>{{ $product->created_at }}</td>
         <td>
         

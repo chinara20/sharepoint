@@ -18,6 +18,11 @@
             <p>Bu səhifədə yer alan sənədləri yükləyə bilərsiniz.</p>
         </div>
         <br />
+        @if(Auth::user()->id != 1)
+                <a style="margin: 10px;margin-top: 40px;" class="btn btn-primary" href="{{ route('documents.create') }}">
+                   Əlavə et
+                </a>
+        @endif
         <table class="table permissionsTable">
             <thead>
                 <tr>
@@ -50,6 +55,14 @@
                         <a download target="_blank" href="{{$document->src}}">
                             {{$document->created_at}}
                         </a>
+                    </td>
+                    <td class="button-container">
+                        
+                            <form action="{{ route('documents.destroy', $document->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Sil</button>
+                            </form>
                     </td>
                 </tr>
                 @endforeach

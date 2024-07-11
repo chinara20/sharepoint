@@ -34,15 +34,15 @@
                 </div>
                 <div class="form-group">
                     <label for="product_id">Məhsul</label>
-                    <select name="product_id" id="product_id" class="form-control">
+                    <select name="product_id" id="product_id" class="form-control" onchange="updatePrice()">
                         @foreach($products as $product)
-                        <option value="{{$product->id}}">{{$product->name}}</option>
+                            <option data-price="{{$product->price}}" value="{{$product->id}}">{{$product->name}}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="price">Qiymət</label>
-                    <input type="text" value="50.00" name="price" id="price" class="form-control" required>
+                    <input type="text" id="price" class="form-control" readonly >
                 </div>
                 <div class="form-group">
                     <label for="qty">Ədəd</label>
@@ -57,4 +57,11 @@
             </form>
         </div>
     </div>
+    <script>
+        function updatePrice() {
+            var select = document.getElementById('product_id');
+            var price = select.options[select.selectedIndex].getAttribute('data-price');
+            document.getElementById('price').value = price;
+        }
+    </script>
 @endsection

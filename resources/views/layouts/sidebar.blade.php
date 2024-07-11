@@ -86,6 +86,19 @@
             <span class="sidebar-title">Faq</span>
         </a>
     </li>
+   
+    <li>
+        <a href="{{ route('departments.index') }}">
+            <span class="fa fa-question"></span>
+            <span class="sidebar-title">Departaments</span>
+        </a>
+    </li>
+    <li>
+        <a href="{{ route('branches.index') }}">
+            <span class="fa fa-question"></span>
+            <span class="sidebar-title">Şöbələr</span>
+        </a>
+    </li>
 
     <li>
         <a class="accordion-toggle" href="#">
