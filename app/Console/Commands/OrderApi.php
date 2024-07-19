@@ -44,7 +44,7 @@ class OrderApi extends Command
 
         foreach ($orders as $o) {
             try {
-                $url = 'http://127.0.0.1:5555/api/order_customers';
+                $url = 'http://127.0.0.1:8001/api/order_customers';
                 $data = [
                     'voen' => $o->voen,
                     'fullname' => $o->full_name,
@@ -75,10 +75,11 @@ class OrderApi extends Command
                 }
                 $id = $order_customer->order_customer->id;
         
-                $url = 'http://127.0.0.1:5555/api/orders';
+                $url = 'http://127.0.0.1:8001/api/orders';
         
                 $data = [
                     'order_customer_id' => $id,
+                    'vendor_id' => $o->id,
                     'product_id' => $o->product_id,
                     'price' => $o->price,
                     'quantity' => $o->qty,
