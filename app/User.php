@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\UserRequirement;
 
 class User extends Authenticatable
 {
@@ -18,6 +19,8 @@ class User extends Authenticatable
         'name', 'surname', 'email', 'password', 'department_id', 'role_id', 'role', 'phone', 'internal_number', 'birthday_date', 'img', 'status', 'permission', 'branch_id'
     ];
 
+
+    
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -34,4 +37,11 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Branch::class, 'branch_id', 'id');
     }
+    public function userRequirements()
+    {
+        return $this->hasMany(UserRequirement::class, 'user_id');
+    }
+    
+
+
 }
