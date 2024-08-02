@@ -26,25 +26,46 @@ class UserRequirementController extends Controller
         return view('user_requirements.create', compact('users', 'requirements'));
     }
 
+    // public function store(Request $request)
+    // {
+    //     $request->validate([
+    //         'user_id' => 'required|exists:users,id',
+    //         'requirement_ids' => 'required|array',
+    //         'requirement_ids.*' => 'exists:requirements,id',
+    //     ]);
+    
+    //     $user_id = $request->input('user_id');
+    //     $requirement_ids = $request->input('requirement_ids', []);
+    
+    //     foreach ($requirement_ids as $requirement_id) {
+    //         UserRequirement::create([
+    //             'user_id' => $user_id,
+    //             'requirement_id' => $requirement_id,
+    //         ]);
+    //     }
+    
+    //     return redirect()->route('user_requirements.index')->with('success', 'Tələblər istifadəçiyə təyin edildi.');
+    // }
+
     public function store(Request $request)
     {
-        $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'requirement_ids' => 'required|array',
-            'requirement_ids.*' => 'exists:requirements,id',
-        ]);
-    
-        $user_id = $request->input('user_id');
-        $requirement_ids = $request->input('requirement_ids', []);
-    
-        foreach ($requirement_ids as $requirement_id) {
-            UserRequirement::create([
-                'user_id' => $user_id,
-                'requirement_id' => $requirement_id,
-            ]);
-        }
-    
-        return redirect()->route('user_requirements.index')->with('success', 'Tələblər istifadəçiyə təyin edildi.');
+       $request->validate([
+          'user_id' => 'required|exists:users,id',
+          'requirement_ids' => 'required|array',
+          'requirement_ids.*' => 'exists:requirements,id',
+       ]);
+
+       $user_id = $request->input('user_id');
+       $requirement_ids = $request->input('requirement_ids', []);
+
+       foreach ($requirement_ids as $requirement_id) {
+          UserRequirement::updateOrCreate(
+            ['user_id' => $user_id, 'requirement_id' => $requirement_id],
+            ['status' => 'pending'] // Varsayılan status 'pending'
+          );
+       }
+
+       return redirect()->route('user_requirements.index')->with('success', 'Tələblər istifadəçiyə təyin edildi.');
     }
     
     public function edit($id)
@@ -58,11 +79,34 @@ class UserRequirementController extends Controller
     }
     
 
+// public function update(Request $request, $id)
+// {
+//     $request->validate([
+//         'requirement_ids' => 'required|array',
+//         'requirement_ids.*' => 'exists:requirements,id',
+//     ]);
+
+//     $userRequirement = UserRequirement::findOrFail($id);
+//     $user_id = $userRequirement->user_id;
+
+//     UserRequirement::where('user_id', $user_id)->delete();
+
+//     $requirement_ids = $request->input('requirement_ids', []);
+//     foreach ($requirement_ids as $requirement_id) {
+//         UserRequirement::create([
+//             'user_id' => $user_id,
+//             'requirement_id' => $requirement_id,
+//         ]);
+//     }
+
+//     return redirect()->route('user_requirements.index')->with('success', 'Tələb redaktə edildi.');
+// }
 public function update(Request $request, $id)
 {
     $request->validate([
         'requirement_ids' => 'required|array',
         'requirement_ids.*' => 'exists:requirements,id',
+        'status' => 'required|string',
     ]);
 
     $userRequirement = UserRequirement::findOrFail($id);
@@ -75,12 +119,12 @@ public function update(Request $request, $id)
         UserRequirement::create([
             'user_id' => $user_id,
             'requirement_id' => $requirement_id,
+            'status' => $request->input('status'),
         ]);
     }
 
     return redirect()->route('user_requirements.index')->with('success', 'Tələb redaktə edildi.');
 }
-
     
 
 // public function destroy($id)

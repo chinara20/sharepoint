@@ -61,6 +61,7 @@ class HomeController extends Controller
     {
         return view('pages.nba.our_luck');
     }
+    
     public function gallery()
     {
         return view('pages.gallery.index');

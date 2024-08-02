@@ -8,7 +8,7 @@ use App\Models\Requirement;
 
 class UserRequirement extends Model
 {
-    protected $fillable = ['user_id', 'requirement_id'];
+    protected $fillable = ['user_id', 'requirement_id', 'status'];
 
     public function user()
     {

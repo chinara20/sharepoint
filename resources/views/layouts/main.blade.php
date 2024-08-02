@@ -131,6 +131,7 @@
                             <li class="menu-item current-menu-item"><a href="index-2.html">Style 1</a></li>
                             <li class="menu-item"><a href="home-2.html">Style 2</a></li>
                             <li class="menu-item"><a href="home-3.html">Style 3</a></li>
+                            
                         </ul>
                     </li>
                     <li class="icon-22 menu-item menu-item-has-children"><a>Sturuktur</a>

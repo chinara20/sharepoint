@@ -58,6 +58,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/daxili-xeber', [HomeController::class, 'news_daxili'])->name('news_daxili');
     Route::get('/home', [HomeController::class, 'home'])->name('home');
     Route::get('/about', [HomeController::class, 'about'])->name('about');
+    
     Route::get('/managment', [HomeController::class, 'managment'])->name('managment');
     Route::get('/partners', [HomeController::class, 'partners'])->name('partners');
     Route::get('/interest', [HomeController::class, 'interest'])->name('interest');
