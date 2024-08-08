@@ -22,11 +22,12 @@
             </div>
 
             <div class="form-group">
-                <label for="status">Status:</label>
-                <select name="status" id="status" class="form-control">
-                    <option value="pending">Pending</option>
-                    <option value="approved">Approved</option>
-                    <option value="rejected">Rejected</option>
+                <label for="user_id">Rəhbər :</label>
+                <select name="user_id" id="user_id" class="form-control" required>
+                    <option value="">Rəhbər Seçin</option>
+                    @foreach ($users as $user)
+                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                    @endforeach
                 </select>
             </div>
 

@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'surname', 'email', 'password', 'department_id', 'role_id', 'role', 'phone', 'internal_number', 'birthday_date', 'img', 'status', 'permission', 'branch_id'
+        'name', 'surname', 'email', 'password', 'department_id', 'role_id', 'role', 'phone', 'internal_number', 'birthday_date', 'img', 'status', 'permission', 'branch_id', 'guide_user_id'
     ];
 
 
@@ -41,7 +41,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserRequirement::class, 'user_id');
     }
-    
-
+   
 
 }

@@ -13,7 +13,7 @@
                     <thead class="thead-light">
                         <tr>
                             <th>Ad</th>
-                            <th>Status</th>
+                            <th>Rəhbər</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -21,7 +21,7 @@
                         @foreach ($requirements as $requirement)
                             <tr>
                                 <td>{{ $requirement->name }}</td>
-                                <td>{{ $requirement->status }}</td>
+                                <td>{{ $requirement->user->name ?? 'Yoxdu' }}</td>
                                 <td class="d-flex">
                                     <a href="{{ route('requirements.edit', $requirement->id) }}" class="btn btn-sm btn-warning mr-2">Redaktə Et</a>
                                     <form action="{{ route('requirements.destroy', $requirement->id) }}" method="POST" style="display:inline;">

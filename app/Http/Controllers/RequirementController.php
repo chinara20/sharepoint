@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Requirement;
-use App\Models\Userr;
+use App\User;
+use Auth;
 
 
 class RequirementController extends Controller
@@ -14,62 +15,48 @@ class RequirementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
+
     public function index()
-    {
-        $requirements = Requirement::all();
-        return view('requirements.index', compact('requirements'));
-    }
+{
+    $requirements = Requirement::all(); 
+    return view('requirements.index', compact('requirements'));
+}
 
-    public function create()
-    {
-        return view('requirements.create');
-    }
 
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //         'name' => 'required|string|max:255',
-    //     ]);
+public function create()
+{
+    $users = User::all();
+    return view('requirements.create', compact('users'));
+}
 
-    //     Requirement::create($request->all());
-
-    //     return redirect()->route('requirements.index')->with('success', 'Tələb ugurla yaradıldı.');
-    // }
-
-    public function store(Request $request)
+public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'status' => 'required|string', // status'u doğruluyoruz
+            'user_id' => 'required|exists:users,id',
         ]);
-    
-        Requirement::create($request->all());
-    
-        return redirect()->route('requirements.index')->with('success', 'Tələb ugurla yaradıldı.');
-    }
-    
+        Requirement::create([
+            'name' => $request->input('name'),
+            'user_id' => $request->input('user_id'), 
+        ]);
 
+        return redirect()->route('requirements.index')->with('success', 'Tələb yaradıldı ve rehber bilgisi eklendi!');
+    }
+       
     public function edit(Requirement $requirement)
-    {
-        $requirement = Requirement::findOrFail($id);
-        return view('requirements.edit', compact('requirement'));
-    }
+{
+    $allRequirements = Requirement::all();
 
-    // public function update(Request $request, Requirement $requirement)
-    // {
-    //     $request->validate([
-    //         'name' => 'required|string|max:255',
-    //     ]);
+    return view('requirements.edit', compact('requirement', 'allRequirements'));
+}
 
-    //     $requirement->update($request->all());
 
-    //     return redirect()->route('requirements.index')->with('success', 'Tələb redaktə edildi.');
-    // }
     public function update(Request $request, $id)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'status' => 'required|string', // status'u doğruluyoruz
+            'status' => 'string', 
         ]);
     
         $requirement = Requirement::findOrFail($id);
@@ -77,6 +64,7 @@ class RequirementController extends Controller
     
         return redirect()->route('requirements.index')->with('success', 'Tələb redaktə edildi.');
     }
+
     public function destroy(Requirement $requirement)
     {
         $requirement->delete();

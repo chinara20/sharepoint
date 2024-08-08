@@ -46,6 +46,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('user_requirements/{user_requirement}/edit', [UserRequirementController::class, 'edit'])->name('user_requirements.edit');
     Route::patch('user_requirements/{user_requirement}', [UserRequirementController::class, 'update'])->name('user_requirements.update');
     Route::delete('user_requirements/{user_requirement}', [UserRequirementController::class, 'destroy'])->name('user_requirements.destroy');
+    Route::patch('user_requirements/{id}/accept', [UserRequirementController::class, 'accept'])->name('user_requirements.accept');
+    Route::patch('user_requirements/{id}/reject', [UserRequirementController::class, 'reject'])->name('user_requirements.reject');
 
     Route::get('/userrs', [UserrController::class, 'index'])->name('userrs.index');
     Route::get('/userrs/create', [UserrController::class, 'create'])->name('userrs.create');
@@ -94,11 +96,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/my-ongoing-desks', [HelpdeskController::class, 'my_ongoing_desks'])->name('my_ongoing_desks');
     Route::get('/document-files', [DocumentController::class, 'index'])->name('documents.index');
     Route::get('/test_data', [HomeController::class, 'test_data'])->name('documents.test_data');
-    Route::get('/user-requirements', [UserRequirementController::class, 'index'])->name('user_requirements.index');
-    Route::post('/user-requirements', [UserRequirementController::class, 'store'])->name('user_requirements.store');
-    Route::patch('/user-requirements/{id}', [UserRequirementController::class, 'update'])->name('user_requirements.update');
-    Route::get('/hashing', function(){
-        return Hash::make('KZKS2vSF@');
-    });
+    // Route::get('/user-requirements', [UserRequirementController::class, 'index'])->name('user_requirements.index');
+    // Route::post('/user-requirements', [UserRequirementController::class, 'store'])->name('user_requirements.store');
+    // Route::patch('/user-requirements/{id}', [UserRequirementController::class, 'update'])->name('user_requirements.update');
+ 
     Route::resource('/document_circulation', DocumentCirculationController::class);
+});
+Route::get('/hashing', function(){
+    return Hash::make('random3003');
 });

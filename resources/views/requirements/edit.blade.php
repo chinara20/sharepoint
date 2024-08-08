@@ -9,17 +9,16 @@
 
         <div class="form-group">
             <label for="name">Tələb:</label>
-            <input type="text" name="name" id="name" class="form-control" value="{{ $requirement->name }}" required>
-        </div>
-
-        <div class="form-group">
-            <label for="status">Status:</label>
-            <select name="status" id="status" class="form-control">
-                <option value="pending" {{ $requirement->status == 'pending' ? 'selected' : '' }}>Pending</option>
-                <option value="approved" {{ $requirement->status == 'approved' ? 'selected' : '' }}>Approved</option>
-                <option value="rejected" {{ $requirement->status == 'rejected' ? 'selected' : '' }}>Rejected</option>
+            <select name="name" id="name" class="form-control" required>
+                @foreach ($allRequirements as $req)
+                    <option value="{{ $req->name }}" {{ $req->id == $requirement->id ? 'selected' : '' }}>
+                        {{ $req->name }}
+                    </option>
+                @endforeach
             </select>
         </div>
+        
+
 
         <button type="submit" class="btn btn-primary">Redaktə Et</button>
     </form>

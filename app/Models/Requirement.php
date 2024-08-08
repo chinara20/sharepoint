@@ -1,18 +1,25 @@
 <?php
 
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\User;
 
 class Requirement extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['user_id','name'];
 
-    public function userRequirements()
+    // public function userRequirements()
+    // {
+    //     return $this->hasMany(UserRequirement::class, 'requirement_id');
+    // }
+
+    public function user()
     {
-        return $this->hasMany(UserRequirement::class, 'requirement_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

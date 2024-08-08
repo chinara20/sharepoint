@@ -1,7 +1,6 @@
 @extends('layouts.panel')
 
 @section('content')
-  
     <div class="container">
         <h1 class="text-center mb-4">İstifadəçi tələbləri</h1>
         <a href="{{ route('user_requirements.create') }}" class="btn btn-primary mb-3">Yeni İstifadəçi tələbi yarat</a>
@@ -10,30 +9,36 @@
                 <tr>
                     <th>İstifadəçi</th>
                     <th>Tələb</th>
+                    <th>Status</th>
+                    <th>Tip</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-            @foreach($users as $user)
-                @if($user->userRequirements->isNotEmpty())
+                @foreach($requirements as $requirement)
                     <tr>
-                        <td>{{ $user->name }} {{ $user->surname }}</td>
+                        <td>{{ $requirement->user->name }}</td>
+                        <td>{{ $requirement->requirement->name }}</td>
+                        <td>{{ $requirement->status }}</td>
+                        <td>{{ $requirement->type }}</td>
                         <td>
-                            @foreach($user->userRequirements as $userRequirement)
-                                {{ $userRequirement->requirement->name }}<br>
-                            @endforeach
-                        </td>
-                        <td>
-                            <a href="{{ route('user_requirements.edit', $user->userRequirements->first()->id) }}" class="btn btn-warning">Edit</a>
-                            <form action="{{ route('user_requirements.destroy', $user->userRequirements->first()->id) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
+                            @if($requirement->status === 'pending')
+                                <form action="{{ route('user_requirements.accept', $requirement->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit" class="btn btn-success">Qebul Et</button>
+                                </form>
+                            @endif
+                            @if($requirement->status === 'pending')
+                                <form action="{{ route('user_requirements.reject', $requirement->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit" class="btn btn-warning">Rədd Et</button>
+                                </form>
+                            @endif
                         </td>
                     </tr>
-                @endif
-            @endforeach
+                @endforeach
             </tbody>
         </table>
     </div>

@@ -12,20 +12,10 @@ class CreateUserRequirementsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('requirement_id');
+            $table->string('status')->default('pending');
             $table->timestamps();
             
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('requirement_id')->references('id')->on('requirements')->onDelete('cascade');
         });
-        // $table->unsignedBigInteger('user_id');
-        // $table->unsignedBigInteger('requirement_id');
-        // $table->boolean('completed')->default(false);
-        // $table->timestamps();
-        
-        // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-        // $table->foreign('requirement_id')->references('id')->on('requirements')->onDelete('cascade');
-
-
     }
 
     public function down()

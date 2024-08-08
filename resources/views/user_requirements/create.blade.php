@@ -1,10 +1,8 @@
-<!-- resources/views/user_requirements/create.blade.php -->
-
 @extends('layouts.panel')
 
 @section('content')
     <div class="container">
-        <h1>Yeni </h1>
+        <h1>Yeni</h1>
 
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -19,7 +17,7 @@
         <form action="{{ route('user_requirements.store') }}" method="POST">
             @csrf
             <div class="form-group">
-                <label for="user_id">User</label>
+                <label for="user_id">İstifadəçi</label>
                 <select name="user_id" id="user_id" class="form-control">
                     @foreach ($users as $user)
                         <option value="{{ $user->id }}">{{ $user->name }} {{ $user->surname }}</option>
@@ -28,7 +26,16 @@
             </div>
 
             <div class="form-group">
-                <label for="requirement_ids">Requirements</label>
+                <label for="type">Tip</label>
+                <select name="type" id="type" class="form-control">
+                 <option value="entry">İşə Giriş</option>
+                 <option value="exit">İşdən Çıxış</option>
+                </select>
+            </div>
+         
+
+            <div class="form-group">
+                <label for="requirement_ids">Tələblər</label>
                 <div class="checkboxes">
                     @foreach ($requirements as $requirement)
                         <div class="form-check">
@@ -39,7 +46,10 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">Create</button>
+
+            <button type="submit" class="btn btn-primary">Yarat</button>
         </form>
     </div>
 @endsection
+
+
