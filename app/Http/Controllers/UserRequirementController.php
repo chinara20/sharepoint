@@ -30,29 +30,41 @@ class UserRequirementController extends Controller
     }
     public function index()
     {
-        if(Auth::user()->department_id == 10){
-            $requirements = UserRequirement::all();
-        }else {
-            $requirements = UserRequirement::whereHas('requirement', function($q){
-                $q->where('user_id',Auth::user()->id);
-            })->get();
-        }
+
+        $user = Auth::user();
+        $requirements = UserRequirement::where('user_id', $user->id)->where('status','pending')->with('requirement')->get();
+        
+
+    if ($user->department_id == 10) {
+        $requirements = UserRequirement::with('user', 'requirement')->get();
+    } else if($requirements) {
+        $requirements = UserRequirement::where('user_id', $user->id)->where('status','pending')->with('requirement')->get();
+    }else{
+        $requirements = UserRequirement::whereHas('requirement', function($q){
+        $q->where('user_id',Auth::user()->id);
+    })->get();
+    }
+        // if(Auth::user()->department_id == 10){
+        //     $requirements = UserRequirement::all();
+        // }else {
+        //     $requirements = UserRequirement::whereHas('requirement', function($q){
+        //         $q->where('user_id',Auth::user()->id);
+        //     })->get();
+        // }
 
         return view('user_requirements.index', compact('requirements'));
     }
 
 
-    public function create()
-    {
-        $users = User::all();
-        $requirements = Requirement::all();
-        return view('user_requirements.create', compact('users', 'requirements'));
-    }
 
-    
+public function create()
+{
+    $users = User::all();
+    $requirements = Requirement::all();
+    return view('user_requirements.create', compact('users', 'requirements'));
+}
 
-
-    public function store(Request $request)
+public function store(Request $request)
 {
     $request->validate([
         'user_id' => 'required|exists:users,id',
@@ -63,7 +75,6 @@ class UserRequirementController extends Controller
 
     $user_id = $request->input('user_id');
     $requirement_ids = $request->input('requirement_ids', []);
-    $guide_user_id = $request->input('guide_user_id');
     $type = $request->input('type');
 
     foreach ($requirement_ids as $requirement_id) {
@@ -71,8 +82,7 @@ class UserRequirementController extends Controller
             'user_id' => $user_id,
             'requirement_id' => $requirement_id,
             'type' => $type,
-            // 'status' => 'pending',
-            // 'guide_user_id' => $guide_user_id,
+            'status' => 'pending',
         ]);
     }
 

@@ -2,8 +2,10 @@
 
 @section('content')
     <div class="container">
-        <h1 class="text-center mb-4">İstifadəçi tələbləri</h1>
-        <a href="{{ route('user_requirements.create') }}" class="btn btn-primary mb-3">Yeni İstifadəçi tələbi yarat</a>
+        <h1 class="text-center mb-4">İstifadəçi Tələbləri</h1>
+        @if(Auth::user()->department_id == 10)
+            <a href="{{ route('user_requirements.create') }}" class="btn btn-primary mb-3">Yeni İstifadəçi Tələbi Yarat</a>
+        @endif
         <table class="table">
             <thead>
                 <tr>
@@ -18,22 +20,20 @@
                 @foreach($requirements as $requirement)
                     <tr>
                         <td>{{ $requirement->user->name }}</td>
-                        <td>{{ $requirement->requirement->name }}</td>
+                        <td>@if($requirement->requirement){{ $requirement->requirement->name }} @else - @endif</td>
                         <td>{{ $requirement->status }}</td>
                         <td>{{ $requirement->type }}</td>
                         <td>
-                            @if($requirement->status === 'pending')
+                            @if($requirement->status === 'pending' && Auth::user()->department_id == 10)
                                 <form action="{{ route('user_requirements.accept', $requirement->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('PATCH')
-                                    <button type="submit" class="btn btn-success">Qebul Et</button>
+                                    <button type="submit" class="btn btn-success">Qəbul Et</button>
                                 </form>
-                            @endif
-                            @if($requirement->status === 'pending')
                                 <form action="{{ route('user_requirements.reject', $requirement->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('PATCH')
-                                    <button type="submit" class="btn btn-warning">Rədd Et</button>
+                                    <button type="submit" class="btn btn-danger">Rədd Et</button>
                                 </form>
                             @endif
                         </td>

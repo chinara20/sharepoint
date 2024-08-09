@@ -29,6 +29,7 @@ use App\Http\Controllers\UserRequirementController;
 use App\Http\Controllers\UserrController;
 
 Auth::routes();
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::post('/messages', [MessageController::class, 'sendMessage']);
