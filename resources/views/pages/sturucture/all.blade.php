@@ -55,7 +55,7 @@
         <div class="flex flex-col text-center gap-4 mb-8 p-4">
             <!-- <div><h1>Struktur</h1></div> -->
             <h1 style="font-size: 38px;" class="text-purple-600  font-bold">Struktur</h1>
-            @if (Auth::user()->department_id == 10 || Auth::user()->email == 'nicat.b@nbatech.az' || Auth::user()->email == 'rauf.a@nbatech.az')
+            @if (Auth::user()->department_id == 10 || Auth::user()->email == 'nicat.b@nbatech.az' || Auth::user()->email == 'chinara.t@nbatech.az')
                 <a style="margin: 10px;margin-top: 40px;" class="btn btn-primary" href="{{ route('users.create') }}">Əlavə
                     ET</a>
             @endif
@@ -126,9 +126,14 @@
                                 @elseif($user->show_branch)
                                     {{ $user->show_branch->name }}
                                 @endif
+                                
                             </div>
                             <div class="text-gray-600"> {{ $user->internal_number }}</div>
                             <div class="text-gray-600">{{ $user->email }}</div>
+                            <div class="text-gray-600">
+                             {{ $user->accept_date ? $user->accept_date->format('d-m-Y') : '-' }}
+                            </div>
+
                             @if (Auth::user()->email == 'nail.c@nbatech.az' ||
                                     Auth::user()->email == 'farid.k@nbatech.az' ||
                                     Auth::user()->email == 'rasima.a@nbatech.az' ||
@@ -137,6 +142,7 @@
                                 <a href="{{ route('users.edit', $user->id) }}">Dəyiş</a>
                             @endif
                         </a>
+
                     </div>
                     @endif
                 @endforeach

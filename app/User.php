@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\UserRequirement;
+use Carbon\Carbon;
+
 
 class User extends Authenticatable
 {
@@ -16,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'surname', 'email', 'password', 'department_id', 'role_id', 'role', 'phone', 'internal_number', 'birthday_date', 'img', 'status', 'permission', 'branch_id', 'guide_user_id'
+        'name', 'surname', 'email', 'password', 'department_id', 'role_id', 'role', 'phone', 'internal_number', 'birthday_date', 'img', 'status', 'accept_date', 'permission', 'branch_id', 'guide_user_id'
     ];
 
 
@@ -26,6 +28,7 @@ class User extends Authenticatable
      *
      * @var array
      */
+    protected $dates = ['accept_date'];
     protected $hidden = [
         'password', 'remember_token',
     ];

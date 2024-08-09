@@ -79,6 +79,13 @@
                 </select>
                </div>
                
+
+             <div class="form-group">
+                        <label for="accept_date">İşə Qəbul Tarixi</label>
+                        <input type="date" name="accept_date" id="accept_date" class="form-control" value="{{ $user->accept_date ? $user->accept_date->format('Y-m-d') : '' }}">
+             </div>
+
+
                <div class="col-md-12 ph10 mb5">
                 <label>Foto</label>
                   <input  type="file" name="img" id="name" class="gui-input">

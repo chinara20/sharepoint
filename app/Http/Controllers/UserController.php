@@ -7,6 +7,7 @@ use App\User;
 use App\Branch;
 use App\Models\Structure;
 use App\Department;
+
 use Auth;
 
 class UserController extends Controller
@@ -29,7 +30,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        if (Auth::user()->department_id == 10 || Auth::user()->email == 'nicat.b@nbatech.az' || Auth::user()->email == 'rauf.a@nbatech.az') {
+        if (Auth::user()->department_id == 10 || Auth::user()->email == 'nicat.b@nbatech.az' || Auth::user()->email == 'chinara.t@nbatech.az') {
             $structures = Structure::all()->reverse();
             $emails = User::where('status', 1)->pluck('email');
             $departaments = Department::all();
@@ -48,11 +49,13 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        if (Auth::user()->department_id == 10 || Auth::user()->email == 'nicat.b@nbatech.az' || Auth::user()->email == 'rauf.a@nbatech.az') {
+        if (Auth::user()->department_id == 10 || Auth::user()->email == 'nicat.b@nbatech.az' || Auth::user()->email == 'chinara.t@nbatech.az') {
             $user = $request->all();
             if ($request->img) {
                 $user['img']  = $request->file('img')->store('users', 'public');
             }
+            $user['accept_date'] = $request->input('accept_date');
+
             User::create($user);
             return redirect(route('all_structure'));
         } else {
@@ -102,6 +105,7 @@ class UserController extends Controller
         } else {
             $data['img']  = $user->img;
         }
+        $data['accept_date'] = $request->input('accept_date');
         $user->fill($data)->save();
         return redirect('all_structure');
     }
